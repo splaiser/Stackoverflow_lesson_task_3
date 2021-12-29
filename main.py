@@ -1,17 +1,23 @@
 import requests
-import datetime
+from datetime import date, timedelta
 from pprint import pprint
+
+
 # Нужны все вопросы за последние два дня с тэгом "Python"
 
+
 def get_question():
-    url = "https://api.stackexchange.com/docs/questions"
-    from_date = "2021-12-26"
-    to_date = "2021-12-28"
+    url = "https://api.stackexchange.com/2.3/questions"
+    from_date = date.today() - timedelta(days=2)
+    to_date = date.today()
     params = {
+        "page": "1",
+        "pagesize": "100",
         "fromdate": from_date,
         "todate": to_date,
-        "tagged": 'Python',
         "order": "desc",
+        "sort": "creation",
+        "tagged": 'Python',
         "filter": "default",
         "site": 'stackoverflow'
     }
